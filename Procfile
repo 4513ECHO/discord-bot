@@ -1,2 +1,1 @@
-web: python3 discordbot.py
-
+web: gunicorn gettingstarted.wsgi --log-file -
