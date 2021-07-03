@@ -26,7 +26,5 @@ class MyBot(commands.Bot):
         print(self.user.id)
         print("-----")
 
-if __name__ == '__main__':
-    bot = MyBot(command_prefix=PREFIX)
-    bot.run(TOKEN)
-
+bot = MyBot(command_prefix=PREFIX)
+bot.run(TOKEN)
