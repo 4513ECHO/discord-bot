@@ -16,8 +16,8 @@ class TestCog(commands.Cog):
         await ctx.send("にゃーん")
 
     @commands.command()
-    async def ping(self, ctx):
-        await ctx.send("pong")
+    async def add(self, ctx, n: int, m: int):
+        await ctx.send(f"{n+m}です")
 
     @commands.Cog.listener()
     async def on_message(self, message):
