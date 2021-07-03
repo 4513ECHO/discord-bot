@@ -2,7 +2,7 @@ from discord.ext import commands
 import re
 import os
 
-print(os.path("messages.txt")
+print(os.path("messages.txt"))
 with open("messages.txt", 'r') as f:
     for x in f:
         l = x.split()
