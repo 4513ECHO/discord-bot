@@ -1,11 +1,10 @@
 from discord.ext import commands
-import discord
-import re
+#import re
 
-MESSAGES = {}
-with open("messages.txt", 'r') as f:
-    for x in f:
-        MESSAGES[x.split()[0]] = x.split()[1]
+#MESSAGES = {}
+#with open("messages.txt", 'r') as f:
+#    for x in f:
+#        MESSAGES[x.split()[0]] = x.split()[1]
 
 class TestCog(commands.Cog):
     def __init__(self, bot):
