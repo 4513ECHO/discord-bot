@@ -1,8 +1,10 @@
 import discord
 import os
+import dotenv
 import re
 
-TOKEN = os.environ["TOKEN"]
+dotenv.load_dotenv()
+TOKEN = os.getenv('TOKEN')
 
 PREFIX = "#"
 
