@@ -15,6 +15,10 @@ class TestCog(commands.Cog):
     async def neko(self, ctx):
         await ctx.send("にゃーん")
 
+    @commands.command()
+    async def ping(self, ctx):
+        await ctx.send("pong")
+
     @commands.Cog.listener()
     async def on_message(self, message):
         if message.author.bot:
