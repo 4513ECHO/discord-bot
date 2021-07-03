@@ -1,6 +1,5 @@
 from discord.ext import commands
 import os
-import re
 import traceback
 
 TOKEN = os.environ["TOKEN"]
