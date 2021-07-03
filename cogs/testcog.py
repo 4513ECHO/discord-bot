@@ -1,27 +1,12 @@
 from discord.ext import commands
 import re
+import os
 
-_messages = """
-(死|し)にたい いきててえらいよ
-やったぜ よかったね
-かわいい.*\?$ もちろんそうだよ
-かわいい ありがとう
-病んだ げんきあげる
-ありがとう こちらこそ
-(かなしい|悲しい|つらい|辛い) はなしきくよ
-(つかれた|疲れた) ゆっくり休んで。いきててえらいね
-^ねえねえ なあに
-こんにちは こんにちは
-おはよう おはよう
-おやすみ おやすみ
-"""
-
-messeages = {i[0]: i[1] for i in [i.split() for i in _messages.splitlines()]} 
-
-#with open("messages.txt", 'r') as f:
-#    for x in f:
-#        l = x.split()
-#        messages[l[0]] = l[1]
+print(os.path("messages.txt")
+with open("messages.txt", 'r') as f:
+    for x in f:
+        l = x.split()
+        messages[l[0]] = l[1]
 
 class TestCog(commands.Cog):
     def __init__(self, bot):
