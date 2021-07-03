@@ -8,8 +8,6 @@ INITAL_EXTENSIONS = [
     'cogs.testcog'
 ]
 
-PREFIX = "#"
-
 class MyBot(commands.Bot):
     def __init__(self, command_prefix):
         super().__init__(command_prefix)
@@ -26,5 +24,5 @@ class MyBot(commands.Bot):
         print(self.user.id)
         print("-----")
 
-bot = MyBot(command_prefix=PREFIX)
+bot = MyBot(command_prefix="#")
 bot.run(TOKEN)
