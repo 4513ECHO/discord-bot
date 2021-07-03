@@ -14,18 +14,17 @@ class TestCog(commands.Cog):
     async def neko(self, ctx):
         await ctx.send("にゃーん")
 
-    @commands.Cog.listener()
-    async def on_message(self, message):
-        msg = message.content
-        if message.author.bot:
-            return
-
-        for x in MESSAGES.keys():
-            if re.match(x, msg):
-                await message.channel.send(MESSAGES[x])
-                return
-        await message.channel.send("そうだね")
+#    @commands.Cog.listener()
+#    async def on_message(self, message):
+#        msg = message.content
+#        if message.author.bot:
+#            return
+#
+#        for x in MESSAGES.keys():
+#            if re.match(x, msg):
+#                await message.channel.send(MESSAGES[x])
+#                return
+#        await message.channel.send("そうだね")
 
 def setup(bot):
     bot.add_cog(TestCog(bot))
-
