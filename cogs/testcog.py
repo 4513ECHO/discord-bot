@@ -21,7 +21,7 @@ class TestCog(commands.Cog):
             return
 
         for x in MESSAGES.keys():
-            if re.match(x, msg.strip(PREFIX)):
+            if re.match(x, msg):
                 await message.channel.send(MESSAGES[x])
                 return
         await message.channel.send("そうだね")
