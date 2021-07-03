@@ -1,44 +1,30 @@
-import discord
+from discord.ext import commands
 import os
 import dotenv
-import re
+import traceback
 
 dotenv.load_dotenv()
 TOKEN = os.getenv('TOKEN')
 
-PREFIX = "#"
+INITAL_EXTENSIONS = [
+    'cogs.testcog'
+]
 
-MESSAGES = {r"neko": "にゃーん",
-            r"(死|し)にたい": "いきててえらいよ",
-            r"やったぜ": "よかったね",
-            r"かわいい.*\?$": "もちろんそうだよ",
-            r"かわいい": "ありがとう",
-            r"病んだ": "げんきあげる",
-            r"ありがとう": "こちらこそ",
-            r"(かなしい|悲しい|つらい|辛い|)": "はなしきくよ",
-            r"(つかれた|疲れた)": "ゆっくり休んで いきててえらいね",
-            r"^ねえねえ": "なあに",
-            r"こんにちは": "こんにちは",
-            r"おはよう": "おはよう",
-            r"おやすみ": "おやすみ"
-           }
+class MyBot(commands.Bot):
+    def __init__(self, command_prefix):
+        super().__init__(command_prefix)
 
-client = discord.Client()
+        for cog in INITAL_EXTENSIONS:
+            try:
+                self.load_extension(cog)
+            except Exception:
+                traceback.print_exc()
 
-@client.event
-async def on_ready():
-    print("起動しました")
+    async def on_ready(self):
+        print("-----")
+        print(self.user.name)
+        print(self.user.id)
+        print("-----")
 
-@client.event
-async def on_message(message):
-    msg = message.content
-    if message.author.bot or not msg.startswith(PREFIX):
-        return
-
-    for x in MESSAGES.keys():
-        if re.match(x, msg.strip(PREFIX)):
-            await message.channel.send(MESSAGES[x])
-            return
-    await message.channel.send("そうだね")
-
-client.run(TOKEN)
+bot = MyBot(command_prefix="#")
+bot.run(TOKEN)
