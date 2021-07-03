@@ -2,7 +2,7 @@ from discord.ext import commands
 import re
 
 messages = {}
-with open("messages.txt", 'r') as f:
+with open("./messages.txt", 'r') as f:
     for x in f:
         l = x.split()
         messages[l[0]] = l[1]
