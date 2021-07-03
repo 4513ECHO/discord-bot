@@ -1,7 +1,6 @@
 from discord.ext import commands
 import os
 import dotenv
-import traceback
 
 dotenv.load_dotenv()
 TOKEN = os.getenv('TOKEN')
@@ -15,10 +14,7 @@ class MyBot(commands.Bot):
         super().__init__(command_prefix)
 
         for cog in INITAL_EXTENSIONS:
-            try:
-                self.load_extension(cog)
-            except Exception:
-                traceback.print_exc()
+            self.load_extension(cog)
 
     async def on_ready(self):
         print("-----")
