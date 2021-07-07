@@ -3,7 +3,7 @@ import re
 import os
 import csv
 
-with open(os.path.dirname()+"messages.csv") as f:
+with open(os.path.dirname(__file__) + "messages.csv") as f:
     messages = dict(filter(None, csv.reader(f)))
 
 for x in messages.keys():
