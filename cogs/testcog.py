@@ -3,7 +3,7 @@ import re
 import os
 import csv
 
-with open(os.path.dirname()+"messages.txt") as f:
+with open(os.path.dirname()+"messages.csv") as f:
     messages = dict(filter(None, csv.reader(f)))
 
 class TestCog(commands.Cog):
