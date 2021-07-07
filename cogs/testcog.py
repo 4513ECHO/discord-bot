@@ -1,11 +1,10 @@
 from discord.ext import commands
 import re
 import os
+import csv
 
-with open("messages.txt", 'r') as f:
-    for x in f:
-        l = x.split()
-        messages[l[0]] = l[1]
+with open(os.path.dirname()+"messages.txt") as f:
+    messages = dict(filter(None, csv.reader(f)))
 
 class TestCog(commands.Cog):
     def __init__(self, bot):
