@@ -7,16 +7,15 @@ dotenv.load_dotenv()
 TOKEN = os.getenv('TOKEN')
 
 INITAL_EXTENSIONS = [
-    'cogs.testcog'
+    'testcog'
 ]
 
 class MyBot(commands.Bot):
     def __init__(self, command_prefix):
         super().__init__(command_prefix)
 
-
         for cog in INITAL_EXTENSIONS:
-            self.load_extension(cog)
+            self.load_extension('cogs.' + cog)
 
     async def on_ready(self):
         print("-----")
