@@ -16,10 +16,7 @@ class MyBot(commands.Bot):
 
 
         for cog in INITAL_EXTENSIONS:
-            try:
-                self.load_extension(cog)
-            except Exception:
-                traceback.print_exc()
+            self.load_extension(cog)
 
     async def on_ready(self):
         print("-----")
