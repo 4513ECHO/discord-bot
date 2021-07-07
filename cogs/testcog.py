@@ -7,7 +7,7 @@ with open(os.path.dirname(__file__) + "/../docs/messages.csv") as f:
     messages = dict(filter(None, csv.reader(f)))
 
 for x in messages.keys():
-    messages[x] = d.pop(repr(x)[1:-1])
+    messages[x] = messages.pop(repr(x)[1:-1])
 
 class TestCog(commands.Cog):
     def __init__(self, bot):
