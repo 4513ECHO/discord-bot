@@ -1,8 +1,10 @@
 from discord.ext import commands
 import os
-import traceback
+import dotenv
+import re
 
-TOKEN = os.environ["TOKEN"]
+dotenv.load_dotenv()
+TOKEN = os.getenv('TOKEN')
 
 INITAL_EXTENSIONS = [
     'cogs.testcog'
@@ -11,6 +13,7 @@ INITAL_EXTENSIONS = [
 class MyBot(commands.Bot):
     def __init__(self, command_prefix):
         super().__init__(command_prefix)
+
 
         for cog in INITAL_EXTENSIONS:
             try:
