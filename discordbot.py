@@ -1,27 +1,28 @@
 from discord.ext import commands
 import os
 import dotenv
-import re
 
 dotenv.load_dotenv()
 TOKEN = os.getenv('TOKEN')
+PREFIX = os.getenv('PREFIX', '#')
 
-INITAL_EXTENSIONS = [
-    'testcog'
+COGS_LIST = [
+    'general',
+    'affirm'
 ]
 
 class MyBot(commands.Bot):
     def __init__(self, command_prefix):
         super().__init__(command_prefix)
 
-        for cog in INITAL_EXTENSIONS:
+        for cog in COGS_LIST:
             self.load_extension('cogs.' + cog)
 
     async def on_ready(self):
-        print("-----")
-        print(self.user.name)
-        print(self.user.id)
-        print("-----")
+        print("--Boot--")
+        print("name: ", self.user.name)
+        print("id: ", self.user.id)
+        print("--------")
 
-bot = MyBot(command_prefix="#")
+bot = MyBot(command_prefix=PREFIX)
 bot.run(TOKEN)
