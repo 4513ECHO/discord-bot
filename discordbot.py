@@ -7,8 +7,9 @@ TOKEN = os.getenv('TOKEN')
 PREFIX = os.getenv('PREFIX', '#')
 
 COGS_LIST = [
-    'general',
-    'affirm'
+    'cogs.general',
+    'cogs.affirm',
+    'dispander',
 ]
 
 class MyBot(commands.Bot):
@@ -16,7 +17,7 @@ class MyBot(commands.Bot):
         super().__init__(command_prefix)
 
         for cog in COGS_LIST:
-            self.load_extension('cogs.' + cog)
+            self.load_extension(cog)
 
     async def on_ready(self):
         print("--Boot--")
