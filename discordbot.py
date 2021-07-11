@@ -14,7 +14,8 @@ COGS_LIST = [
 
 class MyBot(commands.Bot):
     def __init__(self, command_prefix):
-        super().__init__(command_prefix)
+        super().__init__(command_prefix=commands.when_mentioned_or(command_prefix),
+                         case_insensitive=True)
 
         for cog in COGS_LIST:
             self.load_extension(cog)
