@@ -8,7 +8,7 @@ class General(commands.Cog):
     async def neko(self, ctx):
         await ctx.send("にゃーん")
 
-    @commands.commnad()
+    @commands.command()
     async def ping(self, ctx):
         ping = round(bot.latency * 1000)
         await ctx.send(f"pong! Botのping値は{ping}msです")
