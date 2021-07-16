@@ -10,7 +10,7 @@ class General(commands.Cog):
 
     @commands.command()
     async def ping(self, ctx):
-        ping = round(bot.latency * 1000)
+        ping = round(self.bot.latency * 1000)
         await ctx.send(f"pong! Botのping値は{ping}msです")
 
     @commands.command()
