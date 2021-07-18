@@ -1,0 +1,19 @@
+?statement: expr
+          | "-" statement      -> neg
+          | expr "^" statement -> pow
+
+?expr: term
+     | expr "+" term -> add
+     | expr "-" term -> sub
+
+?term: item
+     | term "*" item -> mul
+     | term "/" item -> dev
+
+?item: number        -> number
+     | "(" statement ")"
+
+number: /[0-9]+(\.[0-9]+)?/
+
+%ignore " "
+

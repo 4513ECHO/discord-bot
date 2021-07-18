@@ -9,6 +9,7 @@ PREFIX = os.getenv('PREFIX', '#')
 COGS_LIST = [
     'cogs.general',
     'cogs.affirm',
+    'cogs.calc',
     'dispander',
 ]
 
