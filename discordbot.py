@@ -1,3 +1,4 @@
+import discord
 from discord.ext import commands
 import os
 import dotenv
@@ -13,19 +14,19 @@ COGS_LIST = [
     'dispander',
 ]
 
-class MyBot(commands.Bot):
+class Main(commands.Bot):
     def __init__(self, command_prefix):
         super().__init__(command_prefix=commands.when_mentioned_or(command_prefix),
-                         case_insensitive=True)
+                         case_insensitive=True,
+                         activity=discord.Game(f"{PREFIX}help to Help"),
+                         )
 
         for cog in COGS_LIST:
             self.load_extension(cog)
 
     async def on_ready(self):
-        print("--Boot--")
-        print("name: ", self.user.name)
-        print("id: ", self.user.id)
-        print("--------")
+        print("ready. " + self.user.name)
 
-bot = MyBot(command_prefix=PREFIX)
+bot = Main(command_prefix=PREFIX)
 bot.run(TOKEN)
+
