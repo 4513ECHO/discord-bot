@@ -8,7 +8,7 @@
 
 ?term: item
      | term "*" item -> mul
-     | term "/" item -> dev
+     | term "/" item -> div
 
 ?item: number        -> number
      | "(" statement ")"
