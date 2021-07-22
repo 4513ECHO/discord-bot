@@ -3,7 +3,7 @@ import lark
 import os
 
 with open(os.path.dirname(__file__) + "/../docs/calc.lark") as f:
-    parser = lark.Lark(f.read(), start="statement")
+    calc_parser = lark.Lark(f.read(), start="statement")
 
 class CalcTransformer(lark.Transformer):
     def statement(self, tree): return tree[0]
@@ -36,11 +36,11 @@ class Calc(commands.Cog):
         self.bot = bot
 
     def solve(self, expr):
-        tree = parser.parse(expr)
+        tree = calc_parser.parse(expr)
         result = CalcTransformer().transform(tree)
         return result
 
-    @commands.command()
+    @commands.command(aliases=['c'])
     async def calc(self, ctx, expr):
         try:
             result = self.solve(expr)
@@ -49,10 +49,20 @@ class Calc(commands.Cog):
             await ctx.send("エラーが発生しました。正しい式ではありません")
             print(e)
 
-    @commands.command()
+    @commands.command(aliases=['cq'])
     async def calq(self, ctx, expr):
-        answer = self.solve(expr)
-        await ctx.send(f"{expr}=?")
+        try:
+            answer = str(self.solve(expr))
+            await ctx.send(f"{expr}=?")
+        except Exception as e:
+            await ctx.send("エラーが発生しました。正しい式ではありません")
+            print(e)
+
+        def check(msg):
+            return msg.content == answer and msg.channel == ctx.channel
+
+        msg = await self.bot.wait_for('message', check=check)
+        await msg.add_reaction('\N{Heavy Large Circle}')
 
 def setup(bot):
     bot.add_cog(Calc(bot))
