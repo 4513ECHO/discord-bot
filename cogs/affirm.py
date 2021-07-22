@@ -32,7 +32,10 @@ class Affirm(commands.Cog):
         if message.author.bot:
             return
 
-        if not(message.guild.get_role(AFFIRM_ROLE) in message.author.roles):
+        if not message.guild.get_role(AFFIRM_ROLE) in message.author.roles :
+            return
+
+        if message.content.startswith(tuple(await self.bot.get_prefix(message))):
             return
 
         for x in messages.keys():
