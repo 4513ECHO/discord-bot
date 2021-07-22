@@ -39,7 +39,7 @@ class Dice(commands.Cog):
     async def dice(self, ctx, expr):
         tree = dice_parser.parse(expr)
         result = DiceTransformer().transform(tree)
-        await ctx.send(f"{ctx.author.mension} [{expr}] -> {result}")
+        await ctx.send(f"{ctx.author.mention} [{expr}] -> {result}")
 
 def setup(bot):
     bot.add_cog(Dice(bot))
