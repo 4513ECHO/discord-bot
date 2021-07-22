@@ -11,6 +11,7 @@ COGS_LIST = [
     'cogs.general',
     'cogs.affirm',
     'cogs.calc',
+    'cogs.dice',
     'dispander',
 ]
 
