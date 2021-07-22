@@ -41,8 +41,9 @@ class Calc(commands.Cog):
         return result
 
     @commands.command(aliases=['c'])
-    async def calc(self, ctx, expr):
+    async def calc(self, ctx, *expr):
         try:
+            expr = "".join(expr)
             result = self.solve(expr)
             await ctx.send(result)
         except Exception as e:
@@ -50,8 +51,9 @@ class Calc(commands.Cog):
             print(e)
 
     @commands.command(aliases=['cq'])
-    async def calq(self, ctx, expr):
+    async def calq(self, ctx, *expr):
         try:
+            expr = "".join(expr)
             answer = str(self.solve(expr))
             await ctx.send(f"{expr}=?")
         except Exception as e:
