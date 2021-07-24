@@ -1,12 +1,16 @@
+?statement: expr
+          | expr (  "=" | "==" ) number -> equal
+          | expr ( ">=" | "=>" ) number -> more
+          | expr ( "<=" | "=<" ) number -> less
+
 ?expr: term
      | expr "+" term -> add
      | expr "-" term -> sub
 
-?term: item
-     | term ( "D" | "d" ) item [ ( "=" | "==" ) item ] -> dice
-     | term ( "B" | "b" ) item [ ( "=" | "==" ) item ] -> barabara
+?term: number
+     | term ( "D" | "d" ) number -> dice
+     | term ( "B" | "b" ) number -> barabara
 
-?item: number        -> number
 
 number: /[1-9][0-9]*/
 
