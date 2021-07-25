@@ -12,20 +12,20 @@ class Affirm(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.group(aliases=['af'])
-    async def affirm(self, ctx):
-        if ctx.invoked_subcommand is None:
-            await ctx.send("サブコマンドが指定されていません")
-
-    @affirm.command(aliases=['add'])
-    async def add_member(self, ctx):
-        await ctx.author.add_roles(ctx.guild.get_role(AFFIRM_ROLE))
-        await ctx.send(f"{ctx.author.mention} ロールを追加しました")
-
-    @affirm.command(aliases=['rm'])
-    async def remove_member(self, ctx):
-        await ctx.author.remove_roles(ctx.guild.get_role(AFFIRM_ROLE))
-        await ctx.send(f"{ctx.author.mention} ロールを削除しました")
+    @commands.command(aliases=['af'])
+    async def affirm(self, ctx, on_flag: bool):
+        if on_flag:
+            if ctx.guild.get_role(AFFIRM_ROLE) in message.author.roles:
+                await ctx.send("すでにロールが追加されています")
+                return
+            await ctx.author.add_roles(ctx.guild.get_role(AFFIRM_ROLE))
+            await ctx.send(f"{ctx.author.mention} ロールを追加しました")
+        else:
+            if not ctx.guild.get_role(AFFIRM_ROLE) in message.author.roles:
+                await ctx.send("すでにロールが削除されています")
+                return
+            await ctx.author.remove_roles(ctx.guild.get_role(AFFIRM_ROLE))
+            await ctx.send(f"{ctx.author.mention} ロールを削除しました")
 
     @commands.Cog.listener()
     async def on_message(self, message):
