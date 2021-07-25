@@ -15,13 +15,13 @@ class Affirm(commands.Cog):
     @commands.command(aliases=['af'])
     async def affirm(self, ctx, on_flag: bool):
         if on_flag:
-            if ctx.guild.get_role(AFFIRM_ROLE) in message.author.roles:
+            if ctx.guild.get_role(AFFIRM_ROLE) in ctx.author.roles:
                 await ctx.send("すでにロールが追加されています")
                 return
             await ctx.author.add_roles(ctx.guild.get_role(AFFIRM_ROLE))
             await ctx.send(f"{ctx.author.mention} ロールを追加しました")
         else:
-            if not ctx.guild.get_role(AFFIRM_ROLE) in message.author.roles:
+            if not ctx.guild.get_role(AFFIRM_ROLE) in ctx.author.roles:
                 await ctx.send("すでにロールが削除されています")
                 return
             await ctx.author.remove_roles(ctx.guild.get_role(AFFIRM_ROLE))
