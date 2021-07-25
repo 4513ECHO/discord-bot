@@ -7,8 +7,8 @@
      | expr "-" term -> sub
 
 ?term: item
-     | term "*" item -> mul
-     | term "/" item -> div
+     | term ( "*" | "×" ) item -> mul
+     | term ( "/" | "÷" ) item -> div
 
 ?item: number        -> number
      | "(" statement ")"
