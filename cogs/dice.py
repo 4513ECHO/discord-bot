@@ -54,7 +54,7 @@ class Dice(commands.Cog):
         self.bot = bot
 
     @commands.command(aliases=['d'])
-    async def dice(self, ctx, expr):
+    async def dice(self, ctx, *, expr):
         try:
             tree = dice_parser.parse(expr)
             result = DiceTransformer().transform(tree)
