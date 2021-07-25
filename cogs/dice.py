@@ -55,8 +55,13 @@ class Dice(commands.Cog):
 
     @commands.command(aliases=['d'])
     async def dice(self, ctx, expr):
-        tree = dice_parser.parse(expr)
-        result = DiceTransformer().transform(tree)
+        try:
+            tree = dice_parser.parse(expr)
+            result = DiceTransformer().transform(tree)
+        except Exception as e:
+            await ctx.send("エラーが発生しました。正しい式ではありません")
+            print(e)
+            return
         if result[1:2]:
             if result[1]:
                 result[1] = "Success"
