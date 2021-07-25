@@ -49,6 +49,7 @@ class Calc(commands.Cog):
         except Exception as e:
             await ctx.send("エラーが発生しました。正しい式ではありません")
             print(e)
+            return
 
     @commands.command(aliases=['cq'])
     async def calq(self, ctx, *expr):
@@ -59,6 +60,7 @@ class Calc(commands.Cog):
         except Exception as e:
             await ctx.send("エラーが発生しました。正しい式ではありません")
             print(e)
+            return
 
         def check(msg):
             return msg.content == answer and msg.channel == ctx.channel
