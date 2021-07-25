@@ -12,7 +12,6 @@ COGS_LIST = [
     'cogs.affirm',
     'cogs.calc',
     'cogs.dice',
-    'dispander',
 ]
 
 class Main(commands.Bot):
