@@ -29,6 +29,8 @@ class Main(commands.Bot):
             self.load_extension(cog)
 
     async def on_ready(self):
+        appinfo = await self.application_info()
+        self.owner_id = appinfo.owner.id
         print("ready. " + self.user.name)
 
 bot = Main(command_prefix=PREFIX)
