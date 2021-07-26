@@ -16,7 +16,11 @@ COGS_LIST = [
 
 class Main(commands.Bot):
     def __init__(self, command_prefix):
+        intents = discord.Intents.default()
+        intents.typing = False
+        intents.members = True
         super().__init__(command_prefix=commands.when_mentioned_or(command_prefix),
+                         intents=intents,
                          case_insensitive=True,
                          activity=discord.Game(f"{PREFIX}help to Help"),
                          )
