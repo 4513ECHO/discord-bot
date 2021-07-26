@@ -31,7 +31,7 @@ class Main(commands.Bot):
     async def on_ready(self):
         appinfo = await self.application_info()
         self.owner_id = appinfo.owner.id
-        print("ready. " + self.user.name)
+        print(f"ready. {self.user.name}(id: {self.user.id})")
 
 bot = Main(command_prefix=PREFIX)
 bot.run(TOKEN)
