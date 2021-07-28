@@ -1,12 +1,13 @@
+import discord
 from discord.ext import commands
 import dispander
-import asyncio
 
 class General(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.dispand_flag = True
         self.fake_banned_flag = True
+        self.auto_reactions_channels = dict()
 
     @commands.command()
     async def neko(self, ctx):
@@ -41,9 +42,7 @@ class General(commands.Cog):
             return
 
         if self.bot.get_user(self.bot.owner_id).mention in message.content:
-            self_msg = await message.channel.send("そのユーザーはすでにBANされています!\n(このメッセージは5秒後に削除されます)")
-            await asyncio.sleep(3)
-            await self_msg.delete()
+            await message.channel.send("そのユーザーはすでにBANされています!\n(このメッセージは5秒後に削除されます)", delete_after=5)
 
     @commands.command()
     async def fake_ban(self, ctx, on_flag: bool):
@@ -53,6 +52,29 @@ class General(commands.Cog):
         else:
             self.fake_banned_flag = False
             await ctx.send("偽BAN状態をオフにしました")
+
+    @commands.command()
+    async def auto_reactions(self, ctx, channel: discord.TextChannel, *emojis: str):
+        self.auto_reactions_channels[channel.id] = emojis
+        await ctx.send(f"{channel.name}の自動リアクションを開始しました")
+
+    @commands.command()
+    async def remove_auto_reactions(self, ctx, channel: discord.TextChannel):
+        ch = self.auto_reactions_channels.pop(channel.id, None)
+        if ch is None:
+            await ctx.send(f"{channel.name}では自動リアクションを行なっていません")
+            return
+        await ctx.send(f"{channel.name}の自動リアクションを停止しました")
+
+    @commands.Cog.listener(name='on_message')
+    async def auto_add_reactions(self, message):
+        if message.author.bot:
+            return
+        if not message.channel.id in self.auto_reactions_channels:
+            return
+
+        for x in self.auto_reactions_channels[message.channel.id]:
+            await message.add_reaction(x)
 
 def setup(bot):
     bot.add_cog(General(bot))
