@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import dispander
 
+
 class General(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -18,7 +19,7 @@ class General(commands.Cog):
         ping = round(self.bot.latency * 1000)
         await ctx.send(f"pong! Botのping値は{ping}msです")
 
-    @commands.Cog.listener(name='on_message')
+    @commands.Cog.listener(name="on_message")
     async def do_dispand(self, message):
         if message.author.bot:
             return
@@ -34,7 +35,7 @@ class General(commands.Cog):
             self.dispand_flag = False
             await ctx.send("メッセージ展開をオフにしました")
 
-    @commands.Cog.listener(name='on_message')
+    @commands.Cog.listener(name="on_message")
     async def fake_banned(self, message):
         if message.author.bot:
             return
@@ -42,7 +43,10 @@ class General(commands.Cog):
             return
 
         if self.bot.get_user(self.bot.owner_id).mention in message.content:
-            await message.channel.send("そのユーザーはすでにBANされています!\n(このメッセージは5秒後に削除されます)", delete_after=5)
+            await message.channel.send(
+                "そのユーザーはすでにBANされています!\n(このメッセージは5秒後に削除されます)",
+                delete_after=5
+            )
 
     @commands.command()
     async def fake_ban(self, ctx, on_flag: bool):
@@ -66,15 +70,16 @@ class General(commands.Cog):
             return
         await ctx.send(f"{channel.name}の自動リアクションを停止しました")
 
-    @commands.Cog.listener(name='on_message')
+    @commands.Cog.listener(name="on_message")
     async def auto_add_reactions(self, message):
         if message.author.bot:
             return
-        if not message.channel.id in self.auto_reactions_channels:
+        if message.channel.id not in self.auto_reactions_channels:
             return
 
         for x in self.auto_reactions_channels[message.channel.id]:
             await message.add_reaction(x)
+
 
 def setup(bot):
     bot.add_cog(General(bot))

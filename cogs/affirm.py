@@ -8,11 +8,12 @@ AFFIRM_ROLE = 860116340672036915
 with open(os.path.dirname(__file__) + "/../docs/messages.csv") as f:
     messages = dict(filter(None, csv.reader(f)))
 
+
 class Affirm(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(aliases=['af'])
+    @commands.command(aliases=["af"])
     async def affirm(self, ctx, on_flag: bool):
         if on_flag:
             if ctx.guild.get_role(AFFIRM_ROLE) in ctx.author.roles:
@@ -32,7 +33,7 @@ class Affirm(commands.Cog):
         if message.author.bot:
             return
 
-        if not message.guild.get_role(AFFIRM_ROLE) in message.author.roles :
+        if message.guild.get_role(AFFIRM_ROLE) not in message.author.roles:
             return
 
         if message.content.startswith(tuple(await self.bot.get_prefix(message))):
@@ -44,6 +45,6 @@ class Affirm(commands.Cog):
                 return
         await message.channel.send("そうだね")
 
+
 def setup(bot):
     bot.add_cog(Affirm(bot))
-

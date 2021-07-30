@@ -6,12 +6,16 @@ import random
 with open(os.path.dirname(__file__) + "/../docs/dice.lark") as f:
     dice_parser = lark.Lark(f.read(), start="statement")
 
+
 class DiceTransformer(lark.Transformer):
-    def statement(self, tree): return tree[0]
+    def statement(self, tree):
+        return tree[0]
 
-    def expr(self, tree): return tree[0]
+    def expr(self, tree):
+        return tree[0]
 
-    def term(self, tree): return tree[0]
+    def term(self, tree):
+        return tree[0]
 
     def equal(self, tree):
         if tree[0] == tree[1]:
@@ -31,9 +35,11 @@ class DiceTransformer(lark.Transformer):
         else:
             return [tree[0][0], False]
 
-    def add(self, tree): return [tree[0][0] + tree[1][0]]
+    def add(self, tree):
+        return [tree[0][0] + tree[1][0]]
 
-    def sub(self, tree): return [tree[0][0] - tree[1][0]]
+    def sub(self, tree):
+        return [tree[0][0] - tree[1][0]]
 
     def dice(self, tree):
         result = 0
@@ -47,13 +53,15 @@ class DiceTransformer(lark.Transformer):
             result.append(random.randint(1, tree[1][0]))
         return [result]
 
-    def number(self, tree): return [int(tree[0])]
+    def number(self, tree):
+        return [int(tree[0])]
+
 
 class Dice(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(aliases=['d'])
+    @commands.command(aliases=["d"])
     async def dice(self, ctx, *, expr):
         try:
             tree = dice_parser.parse(expr)
@@ -66,11 +74,13 @@ class Dice(commands.Cog):
             if result[1]:
                 result[1] = "Success"
             else:
-                 result[1] = "Failure"
-            await ctx.send(f"{ctx.author.mention} [{expr}] -> {result[0]} ({result[1]})")
+                result[1] = "Failure"
+            await ctx.send(
+                f"{ctx.author.mention} [{expr}] -> {result[0]} ({result[1]})"
+            )
         else:
             await ctx.send(f"{ctx.author.mention} [{expr}] -> {result[0]}")
 
+
 def setup(bot):
     bot.add_cog(Dice(bot))
-
