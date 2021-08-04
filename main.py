@@ -1,11 +1,7 @@
 import discord
 from discord.ext import commands
-import os
-import dotenv
 
-dotenv.load_dotenv()
-TOKEN = os.getenv("TOKEN")
-PREFIX = os.getenv("PREFIX", "#")
+import settings
 
 COGS_LIST = [
     "cogs.general",
@@ -24,7 +20,7 @@ class Main(commands.Bot):
             command_prefix=commands.when_mentioned_or(command_prefix),
             intents=intents,
             case_insensitive=True,
-            activity=discord.Game(f"{PREFIX}help to Help"),
+            activity=discord.Game(f"{settings.PREFIX}help to Help"),
         )
 
         for cog in COGS_LIST:
@@ -36,5 +32,5 @@ class Main(commands.Bot):
         print(f"ready. {self.user.name}(id: {self.user.id})")
 
 
-bot = Main(command_prefix=PREFIX)
-bot.run(TOKEN)
+bot = Main(command_prefix=settings.PREFIX)
+bot.run(settings.TOKEN)

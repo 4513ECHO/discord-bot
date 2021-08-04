@@ -1,15 +1,16 @@
+import sys
+from pathlib import Path
+
 import discord
 from discord.ext import commands
 import dispander
-from motor import motor_asyncio as motor
-import dotenv
-import os
 
-dotenv.load_dotenv()
-DB_TOKEN = os.getenv("DB_TOKEN")
-dbclient = motor.AsyncIOMotorClient(DB_TOKEN)
-db = dbclient.Bot
-auto_reactions_channels = db.auto_reactions_channels
+sys.path.append(str(Path('__file__').resolve().parent))
+
+import settings
+
+
+auto_reactions_channels = settings.db.auto_reactions_channels
 
 
 class General(commands.Cog):
