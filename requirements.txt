@@ -2,3 +2,5 @@ discord.py
 python-dotenv
 dispander
 lark-parser
+motor
+dnspython

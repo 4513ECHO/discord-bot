@@ -1,6 +1,15 @@
 import discord
 from discord.ext import commands
 import dispander
+from motor import motor_asyncio as motor
+import dotenv
+import os
+
+dotenv.load_dotenv()
+DB_TOKEN = os.getenv("DB_TOKEN")
+dbclient = motor.AsyncIOMotorClient(DB_TOKEN)
+db = dbclient.Bot
+auto_reaction_channels = db.auto_reaction_channels
 
 
 class General(commands.Cog):
@@ -8,7 +17,6 @@ class General(commands.Cog):
         self.bot = bot
         self.dispand_flag = True
         self.fake_banned_flag = True
-        self.auto_reactions_channels = dict()
 
     @commands.command()
     async def neko(self, ctx):
@@ -44,8 +52,7 @@ class General(commands.Cog):
 
         if self.bot.get_user(self.bot.owner_id).mention in message.content:
             await message.channel.send(
-                "そのユーザーはすでにBANされています!\n(このメッセージは5秒後に削除されます)",
-                delete_after=5
+                "そのユーザーはすでにBANされています!\n(このメッセージは5秒後に削除されます)", delete_after=5
             )
 
     @commands.command()
@@ -59,26 +66,30 @@ class General(commands.Cog):
 
     @commands.command()
     async def auto_reactions(self, ctx, channel: discord.TextChannel, *emojis: str):
-        self.auto_reactions_channels[channel.id] = emojis
+        await auto_reactions_channels.insert_one(
+            {"channelid": channel.id, "emojis": emojis}
+        )
         await ctx.send(f"{channel.name}の自動リアクションを開始しました")
 
     @commands.command()
     async def remove_auto_reactions(self, ctx, channel: discord.TextChannel):
-        ch = self.auto_reactions_channels.pop(channel.id, None)
-        if ch is None:
-            await ctx.send(f"{channel.name}では自動リアクションを行なっていません")
-            return
+        result = await auto_reactions_channels.delete_one({"channelid": channel.id})
+        if result.deleted_count == 0:
+            return await ctx.send(f"{channel.name}では自動リアクションを行なっていません")
         await ctx.send(f"{channel.name}の自動リアクションを停止しました")
 
     @commands.Cog.listener(name="on_message")
     async def auto_add_reactions(self, message):
         if message.author.bot:
             return
-        if message.channel.id not in self.auto_reactions_channels:
+
+        channel = await auto_reactions_channels.find_one(
+            {"channelid": message.channel.id}, {"_id": False}
+        )
+        if channel is None:
             return
 
-        for x in self.auto_reactions_channels[message.channel.id]:
-            await message.add_reaction(x)
+        await message.add_reaction(channel)
 
 
 def setup(bot):
