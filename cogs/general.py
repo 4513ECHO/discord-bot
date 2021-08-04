@@ -9,7 +9,7 @@ dotenv.load_dotenv()
 DB_TOKEN = os.getenv("DB_TOKEN")
 dbclient = motor.AsyncIOMotorClient(DB_TOKEN)
 db = dbclient.Bot
-auto_reaction_channels = db.auto_reaction_channels
+auto_reactions_channels = db.auto_reactions_channels
 
 
 class General(commands.Cog):
