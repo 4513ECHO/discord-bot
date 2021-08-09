@@ -1,12 +1,8 @@
-import sys
-from pathlib import Path
-
 import discord
 from discord.ext import commands
 import dispander
 
-sys.path.append(str(Path('__file__').resolve().parent))
-
+import _pathmagic
 import settings
 
 
