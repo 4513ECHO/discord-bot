@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import dispander
 
-import _pathmagic
+from . import _pathmagic
 import settings
 
 
