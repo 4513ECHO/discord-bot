@@ -1,25 +1,30 @@
-import discord
-from discord.ext import commands
+import logging
 
+import discord
 import settings
+from discord.ext import commands
 
 COGS_LIST = [
     "cogs.general",
     "cogs.affirm",
     "cogs.calc",
     "cogs.dice",
+    "jishaku",
 ]
 
+# TODO: rename docs/ to assets/
 
 class Main(commands.Bot):
     def __init__(self, command_prefix):
         intents = discord.Intents.default()
         intents.typing = False
         intents.members = True
+        allowed_mentions = discord.AllowedMentions(replied_user=False)
         super().__init__(
             command_prefix=commands.when_mentioned_or(command_prefix),
             intents=intents,
             case_insensitive=True,
+            allowed_mentions=allowed_mentions,
             activity=discord.Game(f"{settings.PREFIX}help to Help"),
         )
 
