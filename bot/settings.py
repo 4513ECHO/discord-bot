@@ -10,3 +10,5 @@ DB_TOKEN = os.getenv("DB_TOKEN")
 
 dbclient = motor.AsyncIOMotorClient(DB_TOKEN)
 db = dbclient.Bot
+print(f"discord: PREFIX: {PREFIX}, TOKEN: {TOKEN}")
+print(f"mongodb: USERNAME: {USERNAME}, PASSWORD: {PASSWORD}")
