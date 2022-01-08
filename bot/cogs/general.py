@@ -2,11 +2,15 @@ import discord
 from discord.ext import commands
 import dispander
 
-from . import _pathmagic
+from . import _pathmagic  # type: ignore # noqa
 import settings
 
+with open(os.path.dirname(__file__) + "/otani_meigen.txt") as f:
+    otani_meigen: list[str] = f.readlines()
 
-auto_reactions_channels = settings.db.auto_reactions_channels
+auto_reactions_channels = settings.DB.auto_reactions_channels
+fake_ban_server = settings.DB.fake_ban_server
+expand_message_server = settings.DB.expand_message_server
 
 
 class General(commands.Cog):
@@ -79,12 +83,14 @@ class General(commands.Cog):
     async def auto_add_reactions(self, message):
         if message.author.bot:
             return
-
         channel = await auto_reactions_channels.find_one(
             {"channelid": message.channel.id}, {"_id": False}
         )
         if channel is None:
             return
+        for emoji in channel["emojis"]:
+            await message.add_reaction(emoji)
+        # await message.channel.send(channel)
 
         await message.add_reaction(channel)
 
