@@ -1,0 +1,44 @@
+---
+version: '3'
+
+services:
+  bot:
+    container_name: bot
+    environment:
+      TOKEN: ${TOKEN}
+      PREFIX: ${PREFIX}
+      USERNAME: ${USERNAME}
+      PASSWORD: ${PASSWORD}
+    build:
+      context: ./bot
+      dockerfile: Dockerfile
+    tty: true
+
+  mongo:
+    container_name: mongo
+    image: mongo:4
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${PASSWORD}
+      MONGO_INITDB_DATABASE: test
+    ports:
+      - 27017:27017
+    expose:
+      - 27017
+    volumes:
+      - ./db:/data/db
+      - ./mongo:/docker-entrypoint-initdb.d
+
+  mongo-express:
+    container_name: mongo-express
+    image: mongo-express
+    restart: always
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${USERNAME}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${PASSWORD}
+    ports:
+      - 8081:8081
+    expose:
+      - 8081
+

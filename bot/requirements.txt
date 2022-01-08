@@ -1,6 +1,8 @@
-discord.py
-python-dotenv
+discord.py[voice]
 dispander
+dnspython
+jishaku
 lark-parser
 motor
-dnspython
+pynacl
+python-dotenv
