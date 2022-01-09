@@ -1,7 +1,8 @@
-from discord.ext import commands
-import os
 import csv
+import os
 import re
+
+from discord.ext import commands
 
 AFFIRM_ROLE = 860116340672036915
 

@@ -1,8 +1,7 @@
-import logging
-
 import discord
-import settings
 from discord.ext import commands
+
+from cogs import settings
 
 COGS_LIST = [
     "cogs.general",

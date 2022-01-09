@@ -1,6 +1,7 @@
-from discord.ext import commands
-import lark
 import os
+
+import lark
+from discord.ext import commands
 
 with open(os.path.dirname(__file__) + "/../docs/calc.lark") as f:
     calc_parser = lark.Lark(f.read(), start="statement")

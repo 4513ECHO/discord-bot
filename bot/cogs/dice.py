@@ -1,7 +1,8 @@
-from discord.ext import commands
-import lark
 import os
 import random
+
+import lark
+from discord.ext import commands
 
 with open(os.path.dirname(__file__) + "/../docs/dice.lark") as f:
     dice_parser = lark.Lark(f.read(), start="statement")

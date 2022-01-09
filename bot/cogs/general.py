@@ -1,9 +1,9 @@
-import discord
-from discord.ext import commands
-import dispander
 
-from . import _pathmagic  # type: ignore # noqa
-import settings
+import discord
+import dispander
+from discord.ext import commands
+
+from . import settings
 
 with open(os.path.dirname(__file__) + "/otani_meigen.txt") as f:
     otani_meigen: list[str] = f.readlines()
