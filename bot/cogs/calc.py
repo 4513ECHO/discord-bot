@@ -3,8 +3,9 @@ import os
 import lark
 from discord.ext import commands
 
-with open(os.path.dirname(__file__) + "/../docs/calc.lark") as f:
-    calc_parser = lark.Lark(f.read(), start="statement")
+from . import settings
+
+calc_parser = lark.Lark(settings.load_asset("calc.lark"), start="statement")
 
 
 class CalcTransformer(lark.Transformer):

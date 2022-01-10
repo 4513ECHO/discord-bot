@@ -4,10 +4,13 @@ import re
 
 from discord.ext import commands
 
+from . import settings
+
 AFFIRM_ROLE = 860116340672036915
 
-with open(os.path.dirname(__file__) + "/../docs/messages.csv") as f:
-    messages = dict(filter(None, csv.reader(f)))
+messages = dict(
+    zip(*[list(i) for i in zip(*csv.reader(settings.load_asset("messages.csv", True)))])
+)
 
 
 class Affirm(commands.Cog):
