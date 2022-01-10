@@ -12,8 +12,20 @@ PREFIX: Final = os.getenv("PREFIX", "#")
 USERNAME: Final = os.getenv("USERNAME")
 PASSWORD: Final = os.getenv("PASSWORD")
 
-print(f"discord: PREFIX: {PREFIX}, TOKEN: {TOKEN}")
-print(f"mongodb: USERNAME: {USERNAME}, PASSWORD: {PASSWORD}")
+
+def get_logger(name: str, level: int = logging.INFO) -> logging.Logger:
+    logger = logging.getLogger(name)
+    logger.setLevel(level)
+    handler = logging.StreamHandler()
+    handler.setFormatter(
+        logging.Formatter(
+            fmt="{levelname:^8} - {asctime:<22} - {name:<15} - {message}",
+            style="{",
+        )
+    )
+    logger.addHandler(handler)
+    logger.debug(f"create logger {name}")
+    return logger
 
 
 def load_asset(file: str, split: bool = False) -> Union[str, list[str]]:
@@ -23,6 +35,11 @@ def load_asset(file: str, split: bool = False) -> Union[str, list[str]]:
         if split:
             return f.readlines()
         return f.read()
+
+
+logger = get_logger(__name__)
+logger.info(f"PREFIX: {PREFIX}, TOKEN: {TOKEN}")
+logger.info(f"USERNAME: {USERNAME}, PASSWORD: {PASSWORD}")
 
 host = "mongo"
 database = "test"
@@ -36,4 +53,5 @@ client = motor.AsyncIOMotorClient(
 )
 DB = client[database]
 
-__all__ = (TOKEN, PREFIX, DB)
+
+__all__ = (TOKEN, PREFIX, DB, get_logger, load_asset)

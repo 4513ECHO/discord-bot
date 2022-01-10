@@ -5,6 +5,7 @@ from discord.ext import commands
 
 from . import settings
 
+logger = settings.get_logger(__name__)
 calc_parser = lark.Lark(settings.load_asset("calc.lark"), start="statement")
 
 

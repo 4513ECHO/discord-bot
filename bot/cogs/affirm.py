@@ -6,6 +6,8 @@ from discord.ext import commands
 
 from . import settings
 
+logger = settings.get_logger(__name__)
+
 AFFIRM_ROLE = 860116340672036915
 
 messages = dict(
