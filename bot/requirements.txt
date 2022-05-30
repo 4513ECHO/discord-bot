@@ -1,8 +1,0 @@
-discord.py[voice]
-dispander
-dnspython
-jishaku
-lark-parser
-motor
-pynacl
-python-dotenv

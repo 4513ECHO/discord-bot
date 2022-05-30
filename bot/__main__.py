@@ -1,22 +1,24 @@
+import asyncio
+
 import discord
 from discord.ext import commands
 
-from cogs import settings
+from . import settings
 
 COGS_LIST = [
-    "cogs.general",
-    "cogs.affirm",
-    "cogs.calc",
-    "cogs.dice",
+    "bot.cogs.general",
+    "bot.cogs.affirm",
+    "bot.cogs.calc",
+    "bot.cogs.dice",
+    "bot.cogs.mongodb_testing",
     "jishaku",
 ]
 
-# TODO: rename docs/ to assets/
 discord_logger = settings.get_logger("discord")
 logger = settings.get_logger(__name__)
 
 
-class Main(commands.Bot):
+class MainBot(commands.Bot):
     def __init__(self, command_prefix: str) -> None:
         intents = discord.Intents.default()
         intents.typing = False
@@ -30,16 +32,27 @@ class Main(commands.Bot):
             activity=discord.Game(f"help command: {settings.PREFIX}help"),
         )
 
-        for cog in COGS_LIST:
-            self.load_extension(cog)
-            logger.debug("cog {cog} is loaded")
-
     async def on_ready(self) -> None:
         appinfo = await self.application_info()
         self.owner_id = appinfo.owner.id
         logger.info(f"{self.user.name} is ready. (id: {self.user.id})")
 
 
-bot = Main(command_prefix=settings.PREFIX)
-logger.info(f"TOKEN: {settings.TOKEN}")
-bot.run(settings.TOKEN)
+async def run() -> None:
+    bot = MainBot(command_prefix=settings.PREFIX)
+    for cog in COGS_LIST:
+        await bot.load_extension(cog)
+        logger.debug(f"cog {cog} is loaded")
+    await bot.start(token=settings.TOKEN)
+
+
+def main() -> None:
+    try:
+        asyncio.run(run())
+    except KeyboardInterrupt:
+        logger.warn("interrupted")
+        return
+
+
+if __name__ == "__main__":
+    main()

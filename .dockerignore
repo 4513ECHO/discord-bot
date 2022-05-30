@@ -1,3 +1,5 @@
-__pycache__/
 .git/
-venv/
+.mypy_cache
+.venv/
+__pycache__/
+db/

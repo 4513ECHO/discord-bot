@@ -8,9 +8,9 @@ from motor import motor_asyncio as motor
 
 dotenv.load_dotenv()
 TOKEN: Final = os.getenv("TOKEN")
-PREFIX: Final = os.getenv("PREFIX", "#")
-USERNAME: Final = os.getenv("USERNAME")
-PASSWORD: Final = os.getenv("PASSWORD")
+PREFIX: Final = os.getenv("PREFIX", ";")
+USERNAME = os.getenv("USERNAME")
+PASSWORD = os.getenv("PASSWORD")
 
 
 def get_logger(name: str, level: int = logging.INFO) -> logging.Logger:
@@ -54,4 +54,4 @@ client = motor.AsyncIOMotorClient(
 DB = client[database]
 
 
-__all__ = (TOKEN, PREFIX, DB, get_logger, load_asset)
+__all__ = ("TOKEN", "PREFIX", "DB", "get_logger", "load_asset")

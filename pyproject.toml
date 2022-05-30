@@ -1,0 +1,46 @@
+[tool.poetry]
+name = "discord-bot"
+version = "0.0.1"
+description = ""
+authors = ["Hibiki(4513ECHO) <4513echo@gmail.com>"]
+license = "MIT"
+repository = "https://github.com/4513ECHO/discord-bot"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+"discord.py" = {git = "https://github.com/Rapptz/discord.py.git", rev = "dc8aef7e", extras = ["voice"]}
+dispander = "^0.5.0"
+dnspython = "^2.2.1"
+jishaku = "^2.5.0"
+lark-parser = "^0.12.0"
+motor = "^3.0.0"
+PyNaCl = "^1.5.0"
+python-dotenv = "^0.20.0"
+
+[tool.poetry.dev-dependencies]
+isort = "^5.10.1"
+black = "^22.3.0"
+mypy = "^0.950"
+flake8 = "^4.0.1"
+pyproject-flake8 = "^0.0.1-alpha.4"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+py_version = 37
+profile = "black"
+
+[tool.mypy]
+py_version = 37
+show_error_codes = true
+pretty = true
+strict = true
+
+[tool.black]
+line-length = 88
+
+[tool.flake8]
+indent-size = 4
+max-line-length = 120
