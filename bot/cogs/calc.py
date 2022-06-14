@@ -1,9 +1,7 @@
-import os
-
 import lark
 from discord.ext import commands
 
-from . import settings
+from .. import settings
 
 logger = settings.get_logger(__name__)
 calc_parser = lark.Lark(settings.load_asset("calc.lark"), start="statement")
@@ -47,7 +45,7 @@ class CalcTransformer(lark.Transformer):
 
 
 class Calc(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
 
     def solve(self, expr):
@@ -82,5 +80,6 @@ class Calc(commands.Cog):
         await msg.add_reaction("\N{Heavy Large Circle}")
 
 
-def setup(bot):
-    bot.add_cog(Calc(bot))
+async def setup(bot: commands.Bot) -> None:
+    await bot.add_cog(Calc(bot))
+    logger.debug("cog is loaded")

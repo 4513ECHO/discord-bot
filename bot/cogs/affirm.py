@@ -4,7 +4,7 @@ import re
 
 from discord.ext import commands
 
-from . import settings
+from .. import settings
 
 logger = settings.get_logger(__name__)
 
@@ -52,5 +52,6 @@ class Affirm(commands.Cog):
         await message.channel.send("そうだね")
 
 
-def setup(bot):
-    bot.add_cog(Affirm(bot))
+async def setup(bot: commands.Bot) -> None:
+    await bot.add_cog(Affirm(bot))
+    logger.debug("cog is loaded")

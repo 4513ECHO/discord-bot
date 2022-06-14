@@ -3,7 +3,7 @@ import discord
 import dispander
 from discord.ext import commands
 
-from . import settings
+from .. import settings
 
 with open(os.path.dirname(__file__) + "/otani_meigen.txt") as f:
     otani_meigen: list[str] = f.readlines()
@@ -14,7 +14,7 @@ expand_message_server = settings.DB.expand_message_server
 
 
 class General(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
         self.dispand_flag = True
         self.fake_banned_flag = True
@@ -95,5 +95,6 @@ class General(commands.Cog):
         await message.add_reaction(channel)
 
 
-def setup(bot):
-    bot.add_cog(General(bot))
+async def setup(bot: commands.Bot) -> None:
+    await bot.add_cog(General(bot))
+    logger.debug("cog is loaded")

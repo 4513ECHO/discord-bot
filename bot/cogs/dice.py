@@ -1,10 +1,9 @@
-import os
 import random
 
 import lark
 from discord.ext import commands
 
-from . import settings
+from .. import settings
 
 logger = settings.get_logger(__name__)
 dice_parser = lark.Lark(settings.load_asset("dice.lark"), start="statement")
@@ -89,6 +88,6 @@ class Dice(commands.Cog):
         logger.debug("command 'dice' is successed")
 
 
-def setup(bot: commands.Bot):
-    bot.add_cog(Dice(bot))
-    logger.debug("load cog")
+async def setup(bot: commands.Bot) -> None:
+    await bot.add_cog(Dice(bot))
+    logger.debug("cog is loaded")
