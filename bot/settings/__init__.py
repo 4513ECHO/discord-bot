@@ -9,8 +9,8 @@ from motor import motor_asyncio as motor
 dotenv.load_dotenv()
 TOKEN: Final = os.getenv("TOKEN")
 PREFIX: Final = os.getenv("PREFIX", ";")
-USERNAME = os.getenv("USERNAME")
-PASSWORD = os.getenv("PASSWORD")
+USERNAME = os.getenv("USERNAME", "")
+PASSWORD = os.getenv("PASSWORD", "")
 
 
 def get_logger(name: str, level: int = logging.INFO) -> logging.Logger:
